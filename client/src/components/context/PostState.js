@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import axios from "axios";
 import PostContext from "./postContext";
 import postReducer from "./postReducer";
 import { nanoid } from "nanoid";
@@ -10,7 +11,8 @@ import {
 	CLEAR_POST,
 	UPDATE_POST,
 	SEARCH_POST,
-	CLEAR_SEARCH
+	CLEAR_SEARCH,
+	POST_ERROR
 } from "../types";
 
 const PostState = props => {
@@ -81,7 +83,8 @@ const PostState = props => {
 			}
 		],
 		current: null,
-		filtered: null
+		filtered: null,
+		error: null
 	};
 
 	const [state, dispatch] = useReducer(postReducer, initialState);
@@ -89,10 +92,27 @@ const PostState = props => {
 	//export const foodContext = createContext();
 
 	// Add post
-	const addPost = post => {
-		post.id = nanoid(10);
-		console.log(post.id);
-		dispatch({ type: ADD_POST, payload: post });
+	const addPost = async post => {
+		//post.id = nanoid(10);
+		const config = {
+			headers: {
+				"Content-Type": "application/json"
+			}
+		};
+		try {
+			//console.log(post);
+			//console.log(post.shopid);
+			const res = await axios.post(
+				`/api/posts/${post.shopid}`,
+				post,
+				config
+			);
+			//console.log(res);
+
+			dispatch({ type: ADD_POST, payload: res.data });
+		} catch (err) {
+			dispatch({ type: POST_ERROR, payload: err.response.msg });
+		}
 	};
 
 	const deletePost = id => {
@@ -134,7 +154,8 @@ const PostState = props => {
 				updatePost,
 				filtered: state.filtered,
 				searchPost,
-				clearSearch
+				clearSearch,
+				error: state.error
 			}}
 		>
 			{props.children}

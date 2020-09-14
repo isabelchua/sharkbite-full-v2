@@ -5,7 +5,8 @@ import {
 	SET_POST,
 	UPDATE_POST,
 	SEARCH_POST,
-	CLEAR_SEARCH
+	CLEAR_SEARCH,
+	POST_ERROR
 } from "../types";
 
 export default (state, action) => {
@@ -50,6 +51,12 @@ export default (state, action) => {
 			return {
 				...state,
 				filtered: null
+			};
+		case POST_ERROR:
+			return {
+				...state,
+				error: action.payload,
+				loading: false
 			};
 		default:
 			return state;

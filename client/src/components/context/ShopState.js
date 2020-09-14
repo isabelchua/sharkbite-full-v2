@@ -7,7 +7,7 @@ const ShopState = props => {
 	const initialState = {
 		shop: [
 			{
-				id: "1",
+				id: "5f5ada9ee9e6931cbcea8500",
 				name: "Kagayanon",
 				phone: "245-345-909",
 				description:
@@ -17,7 +17,7 @@ const ShopState = props => {
 				short: "Asian Fusion"
 			},
 			{
-				id: "9",
+				id: "5f5c2691741f2459c8e2939d",
 				name: "Bigbys",
 				phone: "245-345-909",
 				description:
