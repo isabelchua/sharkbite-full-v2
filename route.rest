@@ -1,0 +1,78 @@
+PUT http://localhost:5000/api/users
+
+
+###
+// GET ALL USERS
+GET http://localhost:5000/api/users
+
+
+###
+// REGISTER USER
+POST http://localhost:5000/api/users
+Content-Type: application/json
+
+{
+			"name": "Mac Yu",
+			"email": "macyu@gmail.com",
+			"password": "12345",
+			"address": "New Zealand"
+}
+###
+// LOGIN USER
+POST http://localhost:5000/api/auth
+Content-Type: application/json
+
+{
+			"email": "macyu@gmail.com",
+			"password": "12345"
+}
+###
+// LOGIN USER eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWY1OTg0MWM3MzczYjYyZDcwNzUzNmU1In0sImlhdCI6MTU5OTcwNTQxOCwiZXhwIjoxNTk5ODA1NDE4fQ.IBH_vrceZw_0oODnrn3GVQ169xaS3yWQZvTKQCBFVrg
+GET http://localhost:5000/api/auth
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWY1OTg0MWM3MzczYjYyZDcwNzUzNmU1In0sImlhdCI6MTU5OTcwNTQxOCwiZXhwIjoxNTk5ODA1NDE4fQ.IBH_vrceZw_0oODnrn3GVQ169xaS3yWQZvTKQCBFVrg
+
+###
+GET http://localhost:5000/api/shops/1
+
+###
+GET http://localhost:5000/api/
+
+###
+POST http://localhost:5000/api/
+Content-Type: application/json
+
+{
+	"name": "Kagayanon",
+	"address": "Cagayan de Oro"
+}
+
+###
+
+GET http://localhost:5000/api/auth
+// get log in user
+
+###
+POST http://localhost:5000/api/auth
+// log in user
+
+###
+// POST a REVIEW in a SHOP
+POST http://localhost:5000/api/posts/5f5ada9ee9e6931cbcea8500
+Content-Type: application/json
+
+{
+	"review": "I loved their food!",
+	"rating": 4
+}
+
+###
+GET http://localhost:5000/api/posts/all
+
+###
+POST http://localhost:5000/api/posts/
+
+###
+PUT http://localhost:5000/api/posts/1
+
+###
+DELETE http://localhost:5000/api/posts/1
