@@ -12,14 +12,16 @@ import {
 	UPDATE_POST,
 	SEARCH_POST,
 	CLEAR_SEARCH,
-	POST_ERROR
+	POST_ERROR,
+	GET_POSTS,
+	CLEAR_POSTS
 } from "../types";
 
 const PostState = props => {
 	const initialState = {
 		posts: [
 			{
-				id: "1",
+				_id: "1",
 				name: "Cake",
 				shop: "5",
 				image: "https://i.imgur.com/w6igL9E.jpg",
@@ -27,11 +29,11 @@ const PostState = props => {
 					"Excellent! Staff are very friendly! Definitely will come back! Very family style! Original presentation! The pakbet was served in a hallowed squash! Nice!!",
 				rating: 4,
 				userid: "1",
-				shopid: "1",
+				shopid: "5f5ada9ee9e6931cbcea8500",
 				date: ""
 			},
 			{
-				id: "2",
+				_id: "2",
 				name: "California Maki",
 				shop: "3",
 				image: "",
@@ -39,20 +41,20 @@ const PostState = props => {
 				rating: 5,
 				userid: "2",
 				date: "Septemper 2 2020",
-				shopid: "1"
+				shopid: "5f5ada9ee9e6931cbcea8500"
 			},
 			{
-				id: "3",
+				_id: "3",
 				name: "Bulalo",
 				shop: "1",
 				image: "",
 				review: "Soooo good!",
 				rating: 3,
 				userid: "3",
-				shopid: "1"
+				shopid: "5f5ada9ee9e6931cbcea8500"
 			},
 			{
-				id: "4",
+				_id: "4",
 				name: "Humba",
 				shop: 4,
 				image: "https://i.imgur.com/5Tuw7mv.jpg",
@@ -62,7 +64,7 @@ const PostState = props => {
 				shopid: "6"
 			},
 			{
-				id: "5",
+				_id: "5",
 				name: "Shrimps",
 				shop: 1,
 				image: "https://i.imgur.com/pLPZ3vM.jpg",
@@ -72,7 +74,7 @@ const PostState = props => {
 				shopid: "9"
 			},
 			{
-				id: "6",
+				_id: "6",
 				name: "Triple chocolate cheesecake",
 				shop: 1,
 				image: "https://i.imgur.com/fWn2enF.jpg",
@@ -89,7 +91,15 @@ const PostState = props => {
 
 	const [state, dispatch] = useReducer(postReducer, initialState);
 
-	//export const foodContext = createContext();
+	// GET POSTS
+	const getPosts = async () => {
+		try {
+			const res = await axios.get(`/api/posts/all`);
+			dispatch({ type: GET_POSTS, payload: res.data });
+		} catch (err) {
+			dispatch({ type: POST_ERROR, payload: err.response.msg });
+		}
+	};
 
 	// Add post
 	const addPost = async post => {
@@ -155,7 +165,8 @@ const PostState = props => {
 				filtered: state.filtered,
 				searchPost,
 				clearSearch,
-				error: state.error
+				error: state.error,
+				getPosts
 			}}
 		>
 			{props.children}

@@ -11,8 +11,8 @@ const Post = require("../models/Post");
 // @access	Private
 
 router.get("/:id", async (req, res) => {
-	console.log("get all posts in shop");
-	res.send("get all posts in shop");
+	console.log(req.params._id);
+	res.send(req.params._id);
 
 	try {
 		const shop = await Shop.findById(req.params._id);
@@ -21,7 +21,6 @@ router.get("/:id", async (req, res) => {
 			shop: shop,
 			postsByShop: posts
 		});
-		
 	} catch (e) {
 		console.log(e);
 		res.redirect("/");

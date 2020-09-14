@@ -24,8 +24,9 @@ router.get("/all", async (req, res) => {
 // @route		GET api/:shopid/posts
 // @desc			Get all posts from shop
 // @access		Public
-router.get("/", async (req, res) => {
+router.get("/:shopid", async (req, res) => {
 	try {
+		console.log(req);
 		const posts = await Shop.find({ shop: req.shop.id }).sort({ date: -1 });
 		res.json(posts);
 	} catch (err) {
@@ -37,7 +38,7 @@ router.get("/", async (req, res) => {
 // @route		GET api/:userid/posts
 // @desc			Get all posts from USER
 // @access		Private
-router.get("/user/:userid", auth, async (req, res) => {
+router.get("/user/:userid", async (req, res) => {
 	try {
 		const posts = await User.find({ user: req.user.id }).sort({ date: -1 });
 		res.json(posts);

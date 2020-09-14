@@ -23,7 +23,7 @@ function ReviewForm() {
 		rating: 0,
 		image: "",
 		shopid: id,
-		userid: "1"
+		userid: "5f5ee5637058563b74ae514c"
 	});
 
 	const { review, image, rating } = post;
@@ -37,7 +37,7 @@ function ReviewForm() {
 				rating: 0,
 				image: "",
 				shopid: id,
-				userid: "1"
+				userid: "5f5ee5637058563b74ae514c"
 			});
 		}
 
@@ -71,16 +71,23 @@ function ReviewForm() {
 	// };
 
 	const onChange = (e, rate) => {
-		//setPost({ ...post, [e.target.name]: e.target.value, rating: rate });
-		//setPost(prevPosts => ({ ...prevPosts, rating: rate }));
 		const { name, value } = e.target;
-		setPost(prevPost => ({ ...prevPost, [name]: value }));
-	};
 
+		setPost(prevPost => ({
+			...prevPost,
+			[name]: value,
+			rating: parseInt(rate)
+		}));
+	};
+	console.log(post.rating);
 	const onSubmit = e => {
+		console.log(post.image);
 		e.preventDefault();
+		if (isNaN(post.rating) || (isNaN(post.rating) && post.review === "")) {
+			alert("please rate");
+			return;
+		}
 		if (current === null) {
-			//rating = rating1;
 			console.log(post);
 			addPost(post);
 		} else {
@@ -91,8 +98,6 @@ function ReviewForm() {
 		// if (!preview) return;
 		// uploadImage(preview);
 	};
-	//console.log("rating ");
-	//console.log(rating1);
 
 	const [isExpanded, setExpanded] = useState(false);
 

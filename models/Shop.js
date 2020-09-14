@@ -11,6 +11,15 @@ const ShopSchema = mongoose.Schema({
 	description: {
 		type: String
 	},
+	image: {
+		type: String
+	},
+	address: {
+		type: String
+	},
+	short: {
+		type: String
+	},
 	date: {
 		type: Date,
 		default: Date.now

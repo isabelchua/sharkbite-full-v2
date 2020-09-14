@@ -9,8 +9,11 @@ function Home() {
 	const shopContext = useContext(ShopContext);
 	const authContext = useContext(AuthContext);
 
+	const { getShops } = shopContext;
+
 	useEffect(() => {
 		authContext.loadUser();
+		getShops();
 		// eslint-disable-next-line
 	}, []);
 
@@ -24,7 +27,7 @@ function Home() {
 			</div>
 			<div className="home-card">
 				{shop.map(sho => (
-					<ShopCard key={sho.id} shop={sho} />
+					<ShopCard key={sho._id} shop={sho} />
 				))}
 			</div>
 		</div>

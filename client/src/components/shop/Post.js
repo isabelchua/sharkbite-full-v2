@@ -9,8 +9,8 @@ function Post({ posts, user }) {
 	const postContext = useContext(PostContext);
 	const { deletePost, setPost, clearPost } = postContext;
 
-	const { id, name, review, image, userid, rating } = posts;
-	const { fname, lname, address } = user;
+	const { id, review, image, userid, rating } = posts;
+	//const { name, address } = user;
 
 	const onDelete = () => {
 		deletePost(id);
@@ -29,9 +29,9 @@ function Post({ posts, user }) {
 				<Avatar src={user.image} />
 				<div className="user-details-post">
 					<p>
-						<strong>{fname + " " + lname}</strong>
+						<strong>{user.name}</strong>
 					</p>
-					<p>{address}</p>
+					<p>{user.address}</p>
 				</div>
 			</div>
 			<div className="post-content">

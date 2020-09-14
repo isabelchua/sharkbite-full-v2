@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import ShopBanner from "./ShopBanner";
 import Post from "./Post";
 import PostContext from "../context/postContext";
@@ -10,6 +10,7 @@ import NavBar from "./NavBar";
 import { useParams } from "react-router-dom";
 import Footer from "./Footer";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import Spinner from "../layout/Spinner";
 
 import Logo from "./Logo";
 
@@ -18,12 +19,17 @@ function Shop() {
 	const shopContext = useContext(ShopContext);
 	const userContext = useContext(UserContext);
 
-	const { posts, filtered } = postContext;
+	const { posts, filtered, getPosts, loading } = postContext;
+
+	useEffect(() => {
+		getPosts();
+		//eslint-disable-next-line
+	}, []);
 
 	const { shop } = shopContext;
 	const { user } = userContext;
 
-	const { id, name } = useParams();
+	const { _id, name } = useParams();
 
 	// console.log(
 	// 	food
@@ -39,13 +45,13 @@ function Shop() {
 	// foo.includes(Number(id))
 	// === Number(id)
 	//console.log(post.shopid);
-	const content = posts.filter(foo => foo.shopid === id).length;
+	const content = posts.filter(foo => foo.shopid === _id).length;
 
 	return (
 		<div className="main-wrap">
 			<div className="col1">
 				<Logo />
-				<ShopBanner shop={shop.find(obj => obj.id === id)} />
+				<ShopBanner shop={shop.find(obj => obj._id === _id)} />
 			</div>
 			<div className="col2">
 				<div className="row">
@@ -60,42 +66,44 @@ function Shop() {
 
 				{!content ? (
 					<h4>No Reviews</h4>
-				) : (
+				) : posts !== null && !loading ? (
 					<TransitionGroup className="todo-list">
 						{filtered !== null
 							? filtered
-									.filter(foo => foo.shopid === id)
+									.filter(foo => foo.shopid === _id)
 									.map(foo => (
 										<CSSTransition
-											key={foo.id}
+											key={foo._id}
 											timeout={500}
 											classNames="item"
 										>
 											<Post
 												posts={foo}
 												user={user.find(
-													user => foo.userid === user.id
+													user => foo.userid === user._id
 												)}
 											/>
 										</CSSTransition>
 									))
 							: posts
-									.filter(foo => foo.shopid === id)
+									.filter(foo => foo.shopid === _id)
 									.map(foo => (
 										<CSSTransition
-											key={foo.id}
+											key={foo._id}
 											timeout={500}
 											classNames="item"
 										>
 											<Post
 												posts={foo}
 												user={user.find(
-													user => foo.userid === user.id
+													user => foo.userid === user._id
 												)}
 											/>
 										</CSSTransition>
 									))}
 					</TransitionGroup>
+				) : (
+					<Spinner />
 				)}
 				{/* {posts
 					.filter(foo => foo.shopid === id)

@@ -6,28 +6,38 @@ import {
 	UPDATE_POST,
 	SEARCH_POST,
 	CLEAR_SEARCH,
-	POST_ERROR
+	POST_ERROR,
+	GET_POSTS
 } from "../types";
 
 export default (state, action) => {
 	switch (action.type) {
+		case GET_POSTS:
+			return {
+				...state,
+				posts: action.payload,
+				loading: false
+			};
 		case ADD_POST:
 			console.log([...state.posts, action.payload]);
 			return {
 				...state,
-				posts: [...state.posts, action.payload]
+				posts: [...state.posts, action.payload],
+				loading: false
 			};
 		case UPDATE_POST:
 			return {
 				...state,
 				posts: state.posts.map(post =>
 					post.id === action.payload.id ? action.payload : post
-				)
+				),
+				loading: false
 			};
 		case DELETE_POST:
 			return {
 				...state,
-				posts: state.posts.filter(post => post.id !== action.payload)
+				posts: state.posts.filter(post => post.id !== action.payload),
+				loading: false
 			};
 		case SET_POST:
 			return {
